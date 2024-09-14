@@ -1,7 +1,7 @@
 [project]
 name = "aaf"
 version = "0.3.0"
-description = "Add your description here"
+description = "AAF (Agentic AI Framework)"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

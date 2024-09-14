@@ -1,22 +1,32 @@
-# AAF
+# AAF (Agentic AI Framework)
 
-AAF is a powerful and flexible framework for building and managing conversational AI models.
+AAF is a versatile and extensible framework for building and managing agentic AI models.
 It provides a unified interface for various language model providers and
-implements advanced virtual models for complex conversational scenarios.
+implements advanced virtual models for complex, agent-like conversational scenarios.
+
+Note that AAF is primarily a personal learning project focused on exploring agentic AI and LLM use,
+including complex multi-step interactions.
+While it can be useful for actual use cases like autonomous chat agents and multi-stage task completion,
+please exercise caution when considering it for anything even remotely important.
 
 
 ## Features
 
-- Support for multiple LLM providers (OpenAI, Anthropic, Ollama)
-- Advanced conversation management with Threads and Sessions
-- Virtual models for complex scenarios (TwoPhase, Multiphase, Router)
+- Support for multiple LLM providers (OpenAI, Anthropic, Ollama) to act as the foundation for AI agents
+- Advanced conversation management with Threads and Sessions for maintaining agent state
+- Virtual models for complex, multi-step agent behaviors:
+  - TwoPhase: For agents that plan before acting
+  - Multiphase: For agents that can break down and tackle complex tasks
+  - Router: For meta-agents that can delegate to specialized sub-agents
 - Tool integration for function calling capabilities
 - Cost and token usage tracking
 
 
 ## Installation
 
-(Add installation instructions here)
+```bash
+pip install aaf
+```
 
 
 ## Quick Start
@@ -36,23 +46,20 @@ print(thread.cost_and_usage().pretty())
 ```
 
 
-## LLM Providers
+## Usage
 
-AAF supports the following LLM providers:
-- OpenAI
-- Anthropic
-- Ollama
+### LLM Providers
 
-To use a specific provider, specify the model name when creating a thread:
+AAF supports multiple LLM providers. To use a specific provider, specify the model name when creating a thread:
 
 ```python
 thread = session.create_thread("gpt-4o")  # OpenAI
 thread = session.create_thread("claude-3-5-sonnet-20240620")  # Anthropic
-thread = session.create_thread("llama3:instruct")  # Ollama
+thread = session.create_thread("llama3.1:8b")  # Ollama
 ```
 
 
-## Virtual Models
+### Virtual Models
 
 AAF implements several virtual models for advanced use cases:
 
@@ -83,6 +90,7 @@ print(thread.cost_and_usage().pretty())
 - `aaf/`: Main package directory
   - `llms/`: LLM provider implementations
   - `virtual_models/`: Virtual model implementations
+  - `tools/`: Tool definitions
   - `threads.py`: Thread and Session management
   - `logging.py`: Custom logging implementation
   - `utils.py`: Utility functions
@@ -90,4 +98,4 @@ print(thread.cost_and_usage().pretty())
 
 ## License
 
-(Add license information)
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
