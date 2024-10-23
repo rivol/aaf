@@ -1,8 +1,11 @@
 [project]
 name = "aaf"
-version = "0.3.0"
+version = "0.3.1"
 description = "AAF (Agentic AI Framework)"
 readme = "README.md"
+homepage = "https://github.com/rivol/aaf"
+license = {text = "MIT"}
+authors = [{name = "Rivo Laks", email = "hi@rivolaks.com"}]
 requires-python = ">=3.12"
 dependencies = [
     "anthropic~=0.37.1",
