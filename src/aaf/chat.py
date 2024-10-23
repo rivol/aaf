@@ -25,16 +25,16 @@ class ChatSession:
         self.ui = ui or SimpleStreamingUserInterface()
         self.prompt_session = PromptSession()
 
-    async def run_loop(self, initial_question: Optional[str] = None, *, interactive: bool = True):
+    async def run_loop(self, initial_question: Optional[str] = None, *, interactive: bool = True, **kwargs):
         if initial_question:
-            await self._process_question(initial_question)
+            await self._process_question(initial_question, **kwargs)
 
         try:
             while interactive:
                 question = await self._get_user_input()
                 if question is None:
                     break
-                await self._process_question(question)
+                await self._process_question(question, **kwargs)
 
         finally:
             self.ui.info(f"Final cost: {self.thread.cost_and_usage().pretty_root()}")
@@ -51,9 +51,9 @@ class ChatSession:
                 print("\nGoodbye!")
                 return None
 
-    async def _process_question(self, question: str):
+    async def _process_question(self, question: str, **kwargs):
         self.thread.add_message("user", question)
-        async with self.thread.run_loop() as stream:
+        async with self.thread.run_loop(**kwargs) as stream:
             await use_event_handler(stream, self.ui)
 
         self.ui.info(f"Current cost: {self.thread.cost_and_usage().pretty_root()}")

@@ -9,6 +9,7 @@ from aaf.chat import ChatSession
 from aaf.threads import Session
 
 DEFAULT_MODEL = "gpt-mini"
+DEFAULT_TEMPERATURE = 1.0
 SYSTEM_PROMPT = """
 You are a helpful assistant.
 
@@ -37,6 +38,7 @@ async def amain(
     question: Optional[str] = None,
     interactive: bool = True,
     reflect: bool = False,
+    temperature: float = DEFAULT_TEMPERATURE,
 ):
     thread = Session().create_thread(model_name)
 
@@ -48,7 +50,7 @@ async def amain(
 
     chat_session = ChatSession(thread)
     print(f"Chatting with {thread.model}\n")
-    await chat_session.run_loop(question, interactive=interactive)
+    await chat_session.run_loop(question, interactive=interactive, temperature=temperature)
 
 
 def main(
@@ -62,6 +64,7 @@ def main(
         bool,
         typer.Option("--reflect", "-r", help="Use reflection process when answering"),
     ] = False,
+    temperature: Annotated[float, typer.Option("--temperature", "-t")] = DEFAULT_TEMPERATURE,
     quiet: Annotated[bool, typer.Option("--quiet", "-q")] = False,
     debug: Annotated[bool, typer.Option("--debug", "-d")] = False,
 ):
@@ -77,6 +80,7 @@ def main(
             question=question,
             interactive=not non_interactive,
             reflect=reflect,
+            temperature=temperature,
         )
     )
 

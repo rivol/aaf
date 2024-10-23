@@ -165,12 +165,12 @@ class Thread(StatsTracking):
 
     @asynccontextmanager
     async def run_loop(
-        self, *, max_iterations: int = 10, ignore_exceptions: bool = False
+        self, *, max_iterations: int = 10, ignore_exceptions: bool = False, **kwargs
     ) -> AsyncIterator[ResponseStream]:
         log.info("Thread.run_loop()", max_iterations=max_iterations)
 
         response = ResponseQueue()
-        process_task = asyncio.create_task(self._run_loop_background(response, max_iterations=max_iterations))
+        process_task = asyncio.create_task(self._run_loop_background(response, max_iterations=max_iterations, **kwargs))
         stream = ModelResponseStream(VirtualModelAdapter(process_task, response))
 
         log.debug("Thread.run_loop(): yield stream")
@@ -179,11 +179,11 @@ class Thread(StatsTracking):
         await stream.finish(ignore_exceptions)
         log.info("Thread.run_loop(): DONE")
 
-    async def _run_loop_background(self, response: ResponseQueue, max_iterations: int) -> None:
+    async def _run_loop_background(self, response: ResponseQueue, max_iterations: int, **kwargs) -> None:
         log.debug("Thread.run_loop_background()", max_iterations=max_iterations)
         for i in range(max_iterations):
             tool_use_requests: list[ToolCall] = []
-            async with self.run(ignore_exceptions=True) as step_stream:
+            async with self.run(ignore_exceptions=True, **kwargs) as step_stream:
                 log.debug("Thread._run_loop_background(): stream", stream_id=id(step_stream))
                 async for chunk in step_stream:
                     log.debug("Thread.run_loop_background(): got chunk", chunk=chunk)
