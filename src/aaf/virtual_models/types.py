@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field
 
 class ModelCard(BaseModel):
     id: str
+    name: str
     object: Literal["model"] = "model"
     created: int = Field(default_factory=lambda: int(time.time()))
     owned_by: str = ""

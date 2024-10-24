@@ -44,7 +44,7 @@ class APIChatRequest(ChatRequest):
 
 @app.get("/v1/models")
 def get_models() -> ModelList:
-    return ModelList(data=[ModelCard(id=model.id, owned_by="Rivo") for model in MODELS])
+    return ModelList(data=[ModelCard(id=model.id, name=model.display_name, owned_by="Rivo") for model in MODELS])
 
 
 async def process_wrapper(model: VirtualModelBase, chat: ChatRequest, queue: ResponseQueue) -> None:

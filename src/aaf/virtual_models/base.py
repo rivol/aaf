@@ -20,6 +20,12 @@ class VirtualModelBase(ModelRunner):
     """
 
     id: str
+    name: str | None = None
+
+    @property
+    def display_name(self) -> str:
+        """Returns the display name for the model - either configured name or class name."""
+        return self.name or self.__class__.__name__
 
     async def run(self, model: str, request: ChatRequest, **kwargs) -> ModelResponseStream:
         queue = ResponseQueue()

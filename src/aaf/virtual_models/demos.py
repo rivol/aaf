@@ -10,6 +10,7 @@ from .base import VirtualModelBase
 
 class MinimalVirtualModel(VirtualModelBase):
     id: str = "rivo/minimal-proxy"
+    name: str = "Minimal Demo Model"
 
     async def process(self, chat: ChatRequest, queue: ResponseQueue) -> None:
         await asyncio.sleep(0.1)
