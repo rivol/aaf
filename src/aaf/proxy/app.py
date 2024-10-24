@@ -1,7 +1,7 @@
 import time
-from typing import AsyncIterable
+from typing import Annotated, AsyncIterable
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import Depends, FastAPI, HTTPException, Request
 from openai.types import CompletionUsage
 from openai.types.chat import ChatCompletion, ChatCompletionChunk
 from openai.types.chat.chat_completion import Choice as FullResponseChoice
@@ -20,31 +20,9 @@ from ..virtual_models.router import RouterGPTModel, RouterModel
 from ..virtual_models.two_phase import TwoPhaseChatGPTModel, TwoPhaseGPTModel, TwoPhaseModel
 from ..virtual_models.types import ModelCard, ModelList
 
-app = FastAPI()
-
-
-MODELS = [
-    MinimalVirtualModel(),
-    SimpleVirtualModel(),
-    MultiphaseModel(),
-    MultiphaseChatGPTModel(),
-    MultiphaseGPTModel(),
-    TwoPhaseModel(),
-    TwoPhaseChatGPTModel(),
-    TwoPhaseGPTModel(),
-    RouterModel(),
-    RouterGPTModel(),
-    DemoToolUsageModel(),
-]
-
 
 class APIChatRequest(ChatRequest):
     model: str
-
-
-@app.get("/v1/models")
-def get_models() -> ModelList:
-    return ModelList(data=[ModelCard(id=model.id, name=model.display_name, owned_by="Rivo") for model in MODELS])
 
 
 async def process_wrapper(model: VirtualModelBase, chat: ChatRequest, queue: ResponseQueue) -> None:
@@ -129,11 +107,23 @@ async def generate_chat_title(chat: ChatRequest, model_name: str = "gpt-4o") -> 
     )
 
 
-@app.post("/v1/chat/completions", response_model=None)
-async def post_chat_completions(request: Request, chat: APIChatRequest) -> EventSourceResponse | ChatCompletion:
+def app_models(request: Request) -> list[VirtualModelBase]:
+    """Dependency that provides access to configured models from app state."""
+    return request.app.state.models
+
+
+def get_models_list(models: Annotated[list[VirtualModelBase], Depends(app_models)]) -> ModelList:
+    """List available models."""
+    return ModelList(data=[ModelCard(id=model.id, name=model.display_name, owned_by="Rivo") for model in models])
+
+
+async def post_chat_completions(
+    request: Request, chat: APIChatRequest, models: Annotated[list[VirtualModelBase], Depends(app_models)]
+) -> EventSourceResponse | ChatCompletion:
+    """Handle chat completion requests."""
     print(f"request: {request.method} {request.url.path}")
 
-    model = next((m for m in MODELS if m.id == chat.model), None)
+    model = next((m for m in models if m.id == chat.model), None)
     if not model:
         raise HTTPException(status_code=404, detail="Unknown model")
 
@@ -150,3 +140,40 @@ async def post_chat_completions(request: Request, chat: APIChatRequest) -> Event
             yield dict(data=chunk.model_dump_json())
 
     return EventSourceResponse(wrapper())
+
+
+def setup_app(models: list[VirtualModelBase]) -> FastAPI:
+    """Create and configure a FastAPI application with the given models."""
+    app = FastAPI()
+
+    # Store models in app state
+    app.state.models = models
+
+    # Add routes
+    app.add_api_route("/v1/models", get_models_list, methods=["GET"])
+    app.add_api_route(
+        "/v1/chat/completions",
+        post_chat_completions,
+        methods=["POST"],
+        response_model=None,
+    )
+
+    return app
+
+
+# Create default instance with demo models
+default_models = [
+    MinimalVirtualModel(),
+    SimpleVirtualModel(),
+    MultiphaseModel(),
+    MultiphaseChatGPTModel(),
+    MultiphaseGPTModel(),
+    TwoPhaseModel(),
+    TwoPhaseChatGPTModel(),
+    TwoPhaseGPTModel(),
+    RouterModel(),
+    RouterGPTModel(),
+    DemoToolUsageModel(),
+]
+
+app = setup_app(default_models)
