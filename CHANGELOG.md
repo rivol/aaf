@@ -1,3 +1,9 @@
+# 0.3.2 (2024-10-25)
+
+- Proxy API app now supports custom virtual models
+- Return model name in API responses
+
+
 # 0.3.1 (2024-10-23)
 
 - Add interactive chat script
