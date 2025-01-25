@@ -1,3 +1,8 @@
+# 0.3.2 (2025-01-25)
+
+- Add `gpt-4o-2024-11-20` model. `gpt-4o`, `4o`, `gpt4`, `gpt` aliases now point to this model.
+
+
 # 0.3.2 (2024-10-25)
 
 - Proxy API app now supports custom virtual models

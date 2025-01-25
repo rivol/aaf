@@ -1,6 +1,6 @@
 [project]
 name = "aaf"
-version = "0.3.2"
+version = "0.3.3"
 description = "AAF (Agentic AI Framework)"
 readme = "README.md"
 homepage = "https://github.com/rivol/aaf"
