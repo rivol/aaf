@@ -101,8 +101,12 @@ class OpenAIResponseAdapter(ResponseAdapterBase):
 class OpenAIRunner(ModelRunner):
     MODELS = [
         ModelInfo(
-            name="gpt-4o-2024-08-06",
+            name="gpt-4o-2024-11-20",
             aliases=["gpt-4o", "4o", "gpt4", "gpt"],
+            cost=ModelCost(prompt_per_1m=2.50, completion_per_1m=10),
+        ),
+        ModelInfo(
+            name="gpt-4o-2024-08-06",
             cost=ModelCost(prompt_per_1m=2.50, completion_per_1m=10),
         ),
         ModelInfo(
