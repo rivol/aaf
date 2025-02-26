@@ -145,6 +145,7 @@ class AnthropicRunner(ModelRunner):
         assert len(system_messages) <= 1
         non_system_messages = [message for message in request.messages if message["role"] != "system"]
 
+        kwargs.setdefault("max_tokens", 4096)
         try:
             stream = await self.client.messages.create(
                 model=model,
@@ -152,7 +153,6 @@ class AnthropicRunner(ModelRunner):
                 system=system_messages[0]["content"] if system_messages else NOT_GIVEN,
                 tools=self.get_tools_schema(request.tools) if request.tools else NOT_GIVEN,
                 tool_choice={"type": "auto"} if request.tools else NOT_GIVEN,
-                max_tokens=4096,
                 stream=True,
                 **kwargs,
             )
