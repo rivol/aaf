@@ -13,7 +13,7 @@ from .base import VirtualModelBase
 class MultiphaseModel(VirtualModelBase):
     id: str = "rivo/multiphase"
 
-    external_model_name = "sonnet-3.5"
+    external_model_name = "sonnet"
 
     def __init__(self, external_model_name: Optional[str] = None):
         super().__init__()

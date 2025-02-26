@@ -10,7 +10,7 @@ from .base import VirtualModelBase
 class TwoPhaseModel(VirtualModelBase):
     id: str = "rivo/two-phase"
 
-    external_model_name = "sonnet-3.5"
+    external_model_name = "sonnet"
 
     async def process(self, chat: ChatRequest, queue: ResponseQueue) -> None:
         session = Session()

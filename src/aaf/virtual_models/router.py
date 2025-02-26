@@ -48,7 +48,7 @@ Here are some examples:
 class RouterModel(VirtualModelBase):
     id: str = "rivo/router"
 
-    external_model_name = "sonnet-3.5"
+    external_model_name = "sonnet"
 
     async def process(self, chat: ChatRequest, queue: ResponseQueue) -> None:
         session = Session()
