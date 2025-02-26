@@ -1,4 +1,11 @@
-# 0.3.2 (2025-01-25)
+# 0.3.4 (2025-02-26)
+
+- Add Claude 3.7 Sonnet (`claude-3-7-sonnet-20250219`). `sonnet`, `sonnet-3.7` aliases now point to this model.
+- Upgrade dependencies, and loosen version requirements.
+- Make max_tokens configurable.
+
+
+# 0.3.3 (2025-01-25)
 
 - Add `gpt-4o-2024-11-20` model. `gpt-4o`, `4o`, `gpt4`, `gpt` aliases now point to this model.
 
