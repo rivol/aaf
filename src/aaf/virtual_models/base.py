@@ -53,14 +53,14 @@ class VirtualModelBase(ModelRunner):
         return 0
 
     async def process_continuation(
-        self, session: Session, chat: ChatRequest, queue: ResponseQueue, model_name: str
+        self, session: Session, chat: ChatRequest, queue: ResponseQueue, model_name: str, **kwargs
     ) -> None:
         log.info("process_continuation()", model=self.id, messages_count=len(chat.messages))
         thread = session.create_thread(model_name, name="continuation")
         for message in chat.messages:
             thread.add_message(**message)
 
-        async with thread.run() as stream:
+        async with thread.run(**kwargs) as stream:
             await stream.text_chunks().redirect(queue)
 
     @asynccontextmanager
