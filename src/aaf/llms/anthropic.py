@@ -135,6 +135,87 @@ class AnthropicRunner(ModelRunner):
         super().__init__()
         self.client = AsyncAnthropic()
 
+    def _transform_image_formats(self, messages: list[dict]) -> list[dict]:
+        """Transform OpenAI-format image inputs to Anthropic-format.
+
+        OpenAI format:
+            "content": [
+                {"type": "text", "text": "what do you see?"},
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": "data:image/png;base64,..."
+                    }
+                }
+            ]
+
+        Anthropic format:
+            "content": [
+                {"type": "text", "text": "what do you see?"},
+                {
+                    "type": "image",
+                    "source": {
+                        "type": "base64",
+                        "media_type": "image/png",
+                        "data": "..."  # base64 data without prefix
+                    }
+                }
+            ]
+        """
+
+        def transform_base64_image(url: str) -> dict:
+            """Extract media_type and data from a base64 data URL."""
+            # Parse the URL to extract media type and base64 data
+            # Format: data:image/jpeg;base64,ABC123...
+            parts = url.split(";base64,", 1)
+            if len(parts) == 2:
+                media_type = parts[0].split(":", 1)[1]  # Get "image/jpeg" from "data:image/jpeg"
+                base64_data = parts[1]
+
+                return {"type": "image", "source": {"type": "base64", "media_type": media_type, "data": base64_data}}
+            else:
+                # Fallback for improperly formatted data URLs
+                log.warning("Invalid data URL format for image, cannot extract media_type")
+                return transform_url_image(url)
+
+        def transform_url_image(url: str) -> dict:
+            """Transform a regular URL to Anthropic image format."""
+            return {"type": "image", "source": {"type": "url", "url": url}}
+
+        def transform_image_item(content_item: dict) -> dict:
+            """Transform an OpenAI image item to Anthropic format."""
+            url = content_item["image_url"]["url"]
+
+            # Handle base64 data URLs vs regular URLs
+            if url.startswith("data:"):
+                return transform_base64_image(url)
+            else:
+                return transform_url_image(url)
+
+        # Main transformation logic
+        result = []
+        for message in messages:
+            # If content is not a list, no transformation needed
+            if not isinstance(message.get("content"), list):
+                result.append(message)
+                continue
+
+            # Create a new message with transformed content
+            new_message = {"role": message["role"]}
+            new_content = []
+
+            for item in message["content"]:
+                if isinstance(item, dict) and item.get("type") == "image_url":
+                    new_content.append(transform_image_item(item))
+                else:
+                    # Keep non-image content as is
+                    new_content.append(item)
+
+            new_message["content"] = new_content
+            result.append(new_message)
+
+        return result
+
     async def run(self, model: str, request: ChatRequest, **kwargs) -> ModelResponseStream:
         self.log_run_request(model, request, kwargs)
 
@@ -145,11 +226,14 @@ class AnthropicRunner(ModelRunner):
         assert len(system_messages) <= 1
         non_system_messages = [message for message in request.messages if message["role"] != "system"]
 
+        # Transform OpenAI-format image inputs to Anthropic-format
+        transformed_messages = self._transform_image_formats(non_system_messages)
+
         kwargs.setdefault("max_tokens", 4096)
         try:
             stream = await self.client.messages.create(
                 model=model,
-                messages=non_system_messages,
+                messages=transformed_messages,
                 system=system_messages[0]["content"] if system_messages else NOT_GIVEN,
                 tools=self.get_tools_schema(request.tools) if request.tools else NOT_GIVEN,
                 tool_choice={"type": "auto"} if request.tools else NOT_GIVEN,
