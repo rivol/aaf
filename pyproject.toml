@@ -12,6 +12,7 @@ dependencies = [
     "docstring-parser~=0.16",
     "duckduckgo-search~=6.2",
     "fastapi[standard]~=0.111",
+    "litellm>=1.65.7",
     "openai~=1.30",
     "prompt-toolkit~=3.0",
     "pydantic~=2.7",

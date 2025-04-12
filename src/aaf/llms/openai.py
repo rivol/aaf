@@ -31,16 +31,16 @@ class OpenAIResponseAdapter(ResponseAdapterBase):
         self.raw_chunks = []
 
     async def __aiter__(self) -> AsyncIterator[ResponseChunk]:
-        log.debug("OpenAIResponseAdapter.__aiter__()", id=id(self))
+        log.debug(f"{self.__class__.__name__}.__aiter__()", id=id(self))
         async for chunk in self.stream:
-            log.debug("OpenAIResponseAdapter.__aiter__(): got raw chunk", chunk=chunk)
+            log.debug(f"{self.__class__.__name__}.__aiter__(): got raw chunk", chunk=chunk)
             self.raw_chunks.append(chunk)
 
             if chunk.choices and chunk.choices[0].delta and chunk.choices[0].delta.content:
                 content = chunk.choices[0].delta.content
                 yield ResponseTextChunk(content=content)
 
-            if chunk.usage is not None:
+            if hasattr(chunk, "usage") and chunk.usage is not None:
                 yield ResponseUsageChunk(delta=self.parse_usage(chunk.usage))
 
             if chunk.choices and chunk.choices[0].finish_reason:
@@ -51,7 +51,7 @@ class OpenAIResponseAdapter(ResponseAdapterBase):
                 reason = self.parse_stop_reason(chunk.choices[0].finish_reason)
                 yield ResponseStopReasonChunk(reason=reason)
 
-        log.debug("OpenAIResponseAdapter.__aiter__(): done", id=id(self))
+        log.debug(f"{self.__class__.__name__}.__aiter__(): done", id=id(self))
 
     def parse_usage(self, usage: OpenAICompletionUsage) -> CompletionUsage:
         return CompletionUsage(prompt_tokens=usage.prompt_tokens, completion_tokens=usage.completion_tokens)
@@ -130,6 +130,9 @@ class OpenAIRunner(ModelRunner):
 
         # Ensure the model is valid
         self.get_model_info(model)
+
+        # Set defaults if not provided
+        kwargs.setdefault("max_tokens", request.max_tokens)
 
         try:
             stream = await self.client.chat.completions.create(

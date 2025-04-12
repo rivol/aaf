@@ -163,5 +163,29 @@ def all():
             command()
 
 
+async def run_litellm_test():
+    """Test the LiteLLM provider with a simple question."""
+    print("\nTesting LiteLLM provider...")
+
+    # Demo with the LiteLLM prefix format
+    thread = Session().create_thread(model="litellm/gpt-3.5-turbo", system="You are a helpful assistant.")
+    thread.add_message("user", "What's the capital of France?")
+
+    print("\nUsing model: litellm/gpt-3.5-turbo")
+    print("Response: ", end="")
+    async with thread.run() as stream:
+        async for chunk in stream.text_chunks():
+            print(chunk.content, end="", flush=True)
+        print()
+
+    print(thread.cost_and_usage().pretty())
+
+
+@app.command()
+def litellm_test():
+    """Test the LiteLLM provider."""
+    asyncio.run(run_litellm_test())
+
+
 if __name__ == "__main__":
     app()

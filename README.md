@@ -12,7 +12,7 @@ please exercise caution when considering it for anything even remotely important
 
 ## Features
 
-- Support for multiple LLM providers (OpenAI, Anthropic, Ollama) to act as the foundation for AI agents
+- Support for multiple LLM providers (OpenAI, Anthropic, Ollama, LiteLLM) to act as the foundation for AI agents
 - Advanced conversation management with Threads and Sessions for maintaining agent state
 - Virtual models for complex, multi-step agent behaviors:
   - TwoPhase: For agents that plan before acting
