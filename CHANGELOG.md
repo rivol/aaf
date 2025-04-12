@@ -1,3 +1,11 @@
+# 0.3.5 (2025-04-12)
+
+- Add LiteLLM support for accessing various LLM providers.
+- `gemini/gemini-2.0-flash` and `gemini/gemini-2.5-pro-preview-03-25` are available via LiteLLM.
+- Add support for image inputs in AnthropicRunner by transforming from OpenAI format to Anthropic format.
+- VirtualModelBase.process_continuation() now accepts **kwargs, e.g. for custom temperature.
+
+
 # 0.3.4 (2025-02-26)
 
 - Add Claude 3.7 Sonnet (`claude-3-7-sonnet-20250219`). `sonnet`, `sonnet-3.7` aliases now point to this model.
