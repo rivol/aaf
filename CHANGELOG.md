@@ -1,3 +1,9 @@
+# 0.3.6 (2025-04-20)
+
+- Add new OpenAI models - `gpt-4.1`, `gpt-4.1-mini`, `gpt-4.1-nano`, `o3`, `o4-mini`, plus aliases.
+- `gpt`, `gpt4`, and `gpt-mini` aliases now point to GPT-4.1 family.
+
+
 # 0.3.5 (2025-04-12)
 
 - Add LiteLLM support for accessing various LLM providers.
