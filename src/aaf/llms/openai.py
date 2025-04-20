@@ -102,7 +102,7 @@ class OpenAIRunner(ModelRunner):
     MODELS = [
         ModelInfo(
             name="gpt-4o-2024-11-20",
-            aliases=["gpt-4o", "4o", "gpt4", "gpt"],
+            aliases=["gpt-4o", "4o"],
             cost=ModelCost(prompt_per_1m=2.50, completion_per_1m=10),
         ),
         ModelInfo(
@@ -111,13 +111,38 @@ class OpenAIRunner(ModelRunner):
         ),
         ModelInfo(
             name="gpt-4o-mini-2024-07-18",
-            aliases=["gpt-4o-mini", "gpt-mini"],
+            aliases=["gpt-4o-mini"],
             cost=ModelCost(prompt_per_1m=0.15, completion_per_1m=0.60),
         ),
         ModelInfo(
             name="chatgpt-4o-latest",
             aliases=["chatgpt", "chat"],
             cost=ModelCost(prompt_per_1m=5, completion_per_1m=15),
+        ),
+        ModelInfo(
+            name="gpt-4.1-2025-04-14",
+            aliases=["gpt-4.1", "gpt4", "gpt"],
+            cost=ModelCost(prompt_per_1m=2, completion_per_1m=8),
+        ),
+        ModelInfo(
+            name="gpt-4.1-mini-2025-04-14",
+            aliases=["gpt-4.1-mini", "gpt-mini"],
+            cost=ModelCost(prompt_per_1m=0.4, completion_per_1m=1.6),
+        ),
+        ModelInfo(
+            name="gpt-4.1-nano-2025-04-14",
+            aliases=["gpt-4.1-nano", "gpt-nano"],
+            cost=ModelCost(prompt_per_1m=0.1, completion_per_1m=0.4),
+        ),
+        ModelInfo(
+            name="o3-2025-04-16",
+            aliases=["o3"],
+            cost=ModelCost(prompt_per_1m=10, completion_per_1m=40),
+        ),
+        ModelInfo(
+            name="o4-mini-2025-04-16",
+            aliases=["o4-mini"],
+            cost=ModelCost(prompt_per_1m=1.1, completion_per_1m=4.4),
         ),
     ]
 
@@ -132,7 +157,8 @@ class OpenAIRunner(ModelRunner):
         self.get_model_info(model)
 
         # Set defaults if not provided
-        kwargs.setdefault("max_tokens", request.max_tokens)
+        if request.max_tokens is not None:
+            kwargs.setdefault("max_tokens", request.max_tokens)
 
         try:
             stream = await self.client.chat.completions.create(
