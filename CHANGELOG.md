@@ -1,3 +1,11 @@
+# 0.3.7 (2025-06-11)
+
+- Add Claude 4 family - `sonnet-4` and `opus-4`. `sonnet` points to `sonnet-4` now.
+- Update `gemini-2.5-pro` and `gemini-pro` to `gemini-2.5-pro-preview-06-05`.
+- Add `gemini-2.5-flash` (`gemini-2.5-flash-preview-05-20`).
+- Update o3 pricing.
+
+
 # 0.3.6 (2025-04-20)
 
 - Add new OpenAI models - `gpt-4.1`, `gpt-4.1-mini`, `gpt-4.1-nano`, `o3`, `o4-mini`, plus aliases.
