@@ -17,15 +17,20 @@ class LiteLLMRunner(ModelRunner):
 
     MODELS = [
         ModelInfo(
-            name="gemini/gemini-2.0-flash",
-            aliases=["gemini-2.0-flash", "gemini-flash", "flash"],
-            cost=ModelCost(prompt_per_1m=0.10, completion_per_1m=0.40),
-        ),
-        ModelInfo(
-            name="gemini/gemini-2.5-pro-preview-03-25",
+            name="gemini/gemini-2.5-pro-preview-06-05",
             aliases=["gemini-2.5-pro", "gemini-pro"],
             # Note that prices are for <= 200k tokens
             cost=ModelCost(prompt_per_1m=1.25, completion_per_1m=10.00),
+        ),
+        ModelInfo(
+            name="gemini/gemini-2.5-flash-preview-05-20",
+            aliases=["gemini-2.5-flash"],
+            cost=ModelCost(prompt_per_1m=0.15, completion_per_1m=0.60),
+        ),
+        ModelInfo(
+            name="gemini/gemini-2.0-flash",
+            aliases=["gemini-2.0-flash", "gemini-flash", "flash"],
+            cost=ModelCost(prompt_per_1m=0.10, completion_per_1m=0.40),
         ),
     ]
 

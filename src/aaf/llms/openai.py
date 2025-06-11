@@ -137,7 +137,7 @@ class OpenAIRunner(ModelRunner):
         ModelInfo(
             name="o3-2025-04-16",
             aliases=["o3"],
-            cost=ModelCost(prompt_per_1m=10, completion_per_1m=40),
+            cost=ModelCost(prompt_per_1m=2, completion_per_1m=8),
         ),
         ModelInfo(
             name="o4-mini-2025-04-16",
