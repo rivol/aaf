@@ -116,23 +116,42 @@ class OpenAIRunner(ModelRunner):
         ),
         ModelInfo(
             name="chatgpt-4o-latest",
-            aliases=["chatgpt", "chat"],
             cost=ModelCost(prompt_per_1m=5, completion_per_1m=15),
         ),
         ModelInfo(
             name="gpt-4.1-2025-04-14",
-            aliases=["gpt-4.1", "gpt4", "gpt"],
+            aliases=["gpt-4.1", "gpt4"],
             cost=ModelCost(prompt_per_1m=2, completion_per_1m=8),
         ),
         ModelInfo(
             name="gpt-4.1-mini-2025-04-14",
-            aliases=["gpt-4.1-mini", "gpt-mini"],
+            aliases=["gpt-4.1-mini"],
             cost=ModelCost(prompt_per_1m=0.4, completion_per_1m=1.6),
         ),
         ModelInfo(
             name="gpt-4.1-nano-2025-04-14",
-            aliases=["gpt-4.1-nano", "gpt-nano"],
+            aliases=["gpt-4.1-nano"],
             cost=ModelCost(prompt_per_1m=0.1, completion_per_1m=0.4),
+        ),
+        ModelInfo(
+            name="gpt-5-2025-08-07",
+            aliases=["gpt-5", "gpt5", "gpt"],
+            cost=ModelCost(prompt_per_1m=1.25, completion_per_1m=10),
+        ),
+        ModelInfo(
+            name="gpt-5-mini-2025-08-07",
+            aliases=["gpt-5-mini", "gpt-mini"],
+            cost=ModelCost(prompt_per_1m=0.25, completion_per_1m=2),
+        ),
+        ModelInfo(
+            name="gpt-5-nano-2025-08-07",
+            aliases=["gpt-5-nano", "gpt-nano"],
+            cost=ModelCost(prompt_per_1m=0.05, completion_per_1m=0.4),
+        ),
+        ModelInfo(
+            name="gpt-5-chat-latest",
+            aliases=["gpt-5-chat", "chatgpt", "chat"],
+            cost=ModelCost(prompt_per_1m=1.25, completion_per_1m=10),
         ),
         ModelInfo(
             name="o3-2025-04-16",
