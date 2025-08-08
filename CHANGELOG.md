@@ -1,3 +1,8 @@
+# 0.3.8 (2025-08-08)
+
+- Add GPT-5 family - `gpt-5`, `gpt-5-mini`, `gpt-5-nano`, `gpt-5-chat` and aliases.
+- `gpt`, `gpt-mini`, `gpt-nano`, `chatgpt`, `chat` aliases now point to GPT-5 family.
+
 # 0.3.7 (2025-06-11)
 
 - Add Claude 4 family - `sonnet-4` and `opus-4`. `sonnet` points to `sonnet-4` now.
