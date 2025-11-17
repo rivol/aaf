@@ -1,9 +1,7 @@
 # 0.3.9
 
-- Add Claude Sonnet 4.5 (`claude-sonnet-4-5-20250929`). `sonnet`, `sonnet-4.5` aliases now point to this model.
-- Add Claude Haiku 4.5 (`claude-haiku-4-5-20251001`). `haiku`, `haiku-4.5` aliases now available.
-- Add GPT-5.1 (`gpt-5.1`). `gpt` alias now points to GPT-5.1.
-- Add GPT-5.1 Chat (`gpt-5.1-chat-latest`). `chatgpt`, `chat` aliases now point to this model.
+- Add Claude Sonnet 4.5 and Haiku 4.5. `sonnet` and `haiku` aliases updated.
+- Add GPT-5.1. `gpt`, `gpt-5`, `chatgpt`, `chat` aliases now point to GPT-5.1.
 
 # 0.3.8 (2025-08-08)
 
