@@ -101,6 +101,26 @@ class OpenAIResponseAdapter(ResponseAdapterBase):
 class OpenAIRunner(ModelRunner):
     MODELS = [
         ModelInfo(
+            name="gpt-5.1-2025-11-15",
+            aliases=["gpt-5.1", "gpt5.1", "gpt"],
+            cost=ModelCost(prompt_per_1m=1.00, completion_per_1m=8),
+        ),
+        ModelInfo(
+            name="gpt-5.1-mini-2025-11-15",
+            aliases=["gpt-5.1-mini", "gpt-mini"],
+            cost=ModelCost(prompt_per_1m=0.20, completion_per_1m=1.6),
+        ),
+        ModelInfo(
+            name="gpt-5.1-nano-2025-11-15",
+            aliases=["gpt-5.1-nano", "gpt-nano"],
+            cost=ModelCost(prompt_per_1m=0.04, completion_per_1m=0.3),
+        ),
+        ModelInfo(
+            name="gpt-5.1-chat-latest",
+            aliases=["gpt-5.1-chat", "chatgpt", "chat"],
+            cost=ModelCost(prompt_per_1m=1.00, completion_per_1m=8),
+        ),
+        ModelInfo(
             name="gpt-4o-2024-11-20",
             aliases=["gpt-4o", "4o"],
             cost=ModelCost(prompt_per_1m=2.50, completion_per_1m=10),
@@ -135,22 +155,22 @@ class OpenAIRunner(ModelRunner):
         ),
         ModelInfo(
             name="gpt-5-2025-08-07",
-            aliases=["gpt-5", "gpt5", "gpt"],
+            aliases=["gpt-5", "gpt5"],
             cost=ModelCost(prompt_per_1m=1.25, completion_per_1m=10),
         ),
         ModelInfo(
             name="gpt-5-mini-2025-08-07",
-            aliases=["gpt-5-mini", "gpt-mini"],
+            aliases=["gpt-5-mini"],
             cost=ModelCost(prompt_per_1m=0.25, completion_per_1m=2),
         ),
         ModelInfo(
             name="gpt-5-nano-2025-08-07",
-            aliases=["gpt-5-nano", "gpt-nano"],
+            aliases=["gpt-5-nano"],
             cost=ModelCost(prompt_per_1m=0.05, completion_per_1m=0.4),
         ),
         ModelInfo(
             name="gpt-5-chat-latest",
-            aliases=["gpt-5-chat", "chatgpt", "chat"],
+            aliases=["gpt-5-chat"],
             cost=ModelCost(prompt_per_1m=1.25, completion_per_1m=10),
         ),
         ModelInfo(
