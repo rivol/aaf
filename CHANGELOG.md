@@ -1,3 +1,8 @@
+# 0.3.9
+
+- Add Claude Sonnet 4.5 and Haiku 4.5. `sonnet` and `haiku` aliases updated.
+- Add GPT-5.1. `gpt`, `gpt-5`, `chatgpt`, `chat` aliases now point to GPT-5.1.
+
 # 0.3.8 (2025-08-08)
 
 - Add GPT-5 family - `gpt-5`, `gpt-5-mini`, `gpt-5-nano`, `gpt-5-chat` and aliases.

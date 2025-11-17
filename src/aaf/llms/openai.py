@@ -101,6 +101,16 @@ class OpenAIResponseAdapter(ResponseAdapterBase):
 class OpenAIRunner(ModelRunner):
     MODELS = [
         ModelInfo(
+            name="gpt-5.1",
+            aliases=["gpt-5.1", "gpt-5", "gpt5", "gpt"],
+            cost=ModelCost(prompt_per_1m=1.25, completion_per_1m=10),
+        ),
+        ModelInfo(
+            name="gpt-5.1-chat-latest",
+            aliases=["gpt-5.1-chat", "gpt-5-chat", "chatgpt", "chat"],
+            cost=ModelCost(prompt_per_1m=1.25, completion_per_1m=10),
+        ),
+        ModelInfo(
             name="gpt-4o-2024-11-20",
             aliases=["gpt-4o", "4o"],
             cost=ModelCost(prompt_per_1m=2.50, completion_per_1m=10),
@@ -135,7 +145,6 @@ class OpenAIRunner(ModelRunner):
         ),
         ModelInfo(
             name="gpt-5-2025-08-07",
-            aliases=["gpt-5", "gpt5", "gpt"],
             cost=ModelCost(prompt_per_1m=1.25, completion_per_1m=10),
         ),
         ModelInfo(
@@ -150,7 +159,6 @@ class OpenAIRunner(ModelRunner):
         ),
         ModelInfo(
             name="gpt-5-chat-latest",
-            aliases=["gpt-5-chat", "chatgpt", "chat"],
             cost=ModelCost(prompt_per_1m=1.25, completion_per_1m=10),
         ),
         ModelInfo(
