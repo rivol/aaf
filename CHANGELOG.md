@@ -1,3 +1,8 @@
+# 0.3.9
+
+- Add Claude Sonnet 4.5 (`claude-sonnet-4-5-20250929`). `sonnet`, `sonnet-4.5` aliases now point to this model.
+- Add Claude Haiku 4.5 (`claude-haiku-4-5-20251001`). `haiku`, `haiku-4.5` aliases now available.
+
 # 0.3.8 (2025-08-08)
 
 - Add GPT-5 family - `gpt-5`, `gpt-5-mini`, `gpt-5-nano`, `gpt-5-chat` and aliases.

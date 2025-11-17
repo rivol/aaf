@@ -116,13 +116,23 @@ class AnthropicResponseAdapter(ResponseAdapterBase):
 class AnthropicRunner(ModelRunner):
     MODELS = [
         ModelInfo(
+            name="claude-sonnet-4-5-20250929",
+            aliases=["sonnet", "sonnet-4.5"],
+            cost=ModelCost(prompt_per_1m=3, completion_per_1m=15),
+        ),
+        ModelInfo(
+            name="claude-haiku-4-5-20251001",
+            aliases=["haiku", "haiku-4.5"],
+            cost=ModelCost(prompt_per_1m=0.8, completion_per_1m=4),
+        ),
+        ModelInfo(
             name="claude-opus-4-20250514",
             aliases=["opus", "opus-4"],
             cost=ModelCost(prompt_per_1m=15, completion_per_1m=75),
         ),
         ModelInfo(
             name="claude-sonnet-4-20250514",
-            aliases=["sonnet", "sonnet-4"],
+            aliases=["sonnet-4"],
             cost=ModelCost(prompt_per_1m=3, completion_per_1m=15),
         ),
         ModelInfo(
