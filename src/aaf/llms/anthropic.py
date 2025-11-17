@@ -123,7 +123,7 @@ class AnthropicRunner(ModelRunner):
         ModelInfo(
             name="claude-haiku-4-5-20251001",
             aliases=["haiku", "haiku-4.5"],
-            cost=ModelCost(prompt_per_1m=0.8, completion_per_1m=4),
+            cost=ModelCost(prompt_per_1m=1, completion_per_1m=5),
         ),
         ModelInfo(
             name="claude-opus-4-20250514",
