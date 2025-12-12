@@ -126,7 +126,7 @@ class AnthropicRunner(ModelRunner):
             cost=ModelCost(prompt_per_1m=1, completion_per_1m=5),
         ),
         ModelInfo(
-            name="claude-opus-4-5-20251120",
+            name="claude-opus-4-5-20251101",
             aliases=["opus", "opus-4.5"],
             cost=ModelCost(prompt_per_1m=5, completion_per_1m=25),
         ),

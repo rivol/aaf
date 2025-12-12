@@ -2,7 +2,7 @@
 
 - Add GPT-5.2 (`gpt-5.2-2025-12-11`) and `gpt-5.2-chat-latest`.
 - `gpt`, `gpt-5`, `gpt5`, `gpt-5.2`, `chatgpt`, `chat` aliases now point to GPT-5.2 family.
-- Add Claude Opus 4.5 (`claude-opus-4-5-20251120`). `opus` alias now points to Opus 4.5.
+- Add Claude Opus 4.5 (`claude-opus-4-5-20251101`). `opus` alias now points to Opus 4.5.
 - Add Gemini 3 Pro (`gemini/gemini-3-pro-preview`). `gemini-pro` alias now points to Gemini 3 Pro.
 
 # 0.3.9 (2025-11-17)
