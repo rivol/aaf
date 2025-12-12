@@ -4,6 +4,7 @@
 - `gpt`, `gpt-5`, `gpt5`, `gpt-5.2`, `chatgpt`, `chat` aliases now point to GPT-5.2 family.
 - Add Claude Opus 4.5 (`claude-opus-4-5-20251101`). `opus` alias now points to Opus 4.5.
 - Add Gemini 3 Pro (`gemini/gemini-3-pro-preview`). `gemini-pro` alias now points to Gemini 3 Pro.
+- Bump `litellm` to >=1.80.5 and `openai` to support 2.x for Gemini 3 Pro compatibility.
 
 # 0.3.9 (2025-11-17)
 
