@@ -1,7 +1,7 @@
 # 0.3.10 (2025-12-12)
 
-- Add GPT-5.2 family - `gpt-5.2`, `gpt-5.2-2025-12-11`, `gpt-5.2-chat-latest`.
-- `gpt`, `gpt-5`, `gpt5`, `chatgpt`, `chat` aliases now point to GPT-5.2 family.
+- Add GPT-5.2 (`gpt-5.2-2025-12-11`) and `gpt-5.2-chat-latest`.
+- `gpt`, `gpt-5`, `gpt5`, `gpt-5.2`, `chatgpt`, `chat` aliases now point to GPT-5.2 family.
 
 # 0.3.9 (2025-11-17)
 
